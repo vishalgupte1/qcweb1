@@ -1,6 +1,9 @@
 from flask import Flask, render_template, jsonify
 from database import load_colors_from_db, load_color_from_db
 
+'''
+check git function
+'''
 
 app = Flask(__name__)
 
