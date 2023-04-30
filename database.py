@@ -4,6 +4,10 @@ import os
 
 db_connection_string = os.environ['DB_CONNECTION_STR']
 
+'''
+"mysql+pymysql://ueby2liroq34eiuwafn0:pscale_pw_jMzubTKad2D1kvhPYB8JVB53kOESSf1cBpzNiC8sOQJ@aws.connect.psdb.cloud/qcdb?charset=utf8mb4"
+'''
+
 engine = create_engine(db_connection_string,
                        connect_args={"ssl": {
                          "ssl_ca": "/etc/ssl/cert.pem"
@@ -16,10 +20,21 @@ def load_colors_from_db():
    
     colors_list = []
     for row in result:
-      colors_dict = {'ID': row[0], 'COLOR_ID':row[1], 'COLOR_NAME':row[2]}
+      colors_dict = {'ID': row[0], 'COLOR_ID':row[2], 'COLOR_NAME':row[1]}
       colors_list.append(colors_dict)
     return colors_list
 
+'''
+def load_color_from_db(id):
+  with engine.connect() as conn:
+    result = conn.execute(text("select * from colors where ID = :val"),
+                          {"val": id})
+    rows = result.mappings().all()
+    if len(rows) == 0:
+      return None
+    else:
+      return dict(rows[0])
+'''
 
 def load_color_from_db(id):
   with engine.connect() as conn:

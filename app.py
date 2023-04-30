@@ -23,11 +23,17 @@ def list_colors():
   #return jsonify(colors)
   return jsonify(colors)
   
-
+'''
 @app.route('/color/<int:id>')
 def show_color(id):
   color = load_color_from_db(id)
   return jsonify(color)
+'''
+
+@app.route('/color/<int:id>')
+def show_color(id):
+  color = load_color_from_db(id)
+  return render_template('qccolor.html', color = color)
 
 
 if __name__ == "__main__":
